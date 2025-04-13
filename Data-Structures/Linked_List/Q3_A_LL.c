@@ -86,7 +86,51 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	ListNode *curr=ll->head;
+	ListNode *prev=NULL;
+	ListNode *tail=ll->head;
+
+	int s= ll->size;
+
+	while (tail -> next != NULL){ //마지막 원소 일때 까지 계속
+		tail=tail->next;
+	}
+
+	// ListNode *end=tail;
+
+	int cnt=0;
+	while (cnt < s){
+		ListNode *next=curr->next;
+
+		if (curr -> item %2 !=0){
+			//현재 노드 제거
+			if (prev ==NULL){//현재 노드 head
+				ll->head=curr->next; //head node는 현재노드의 다음 노드다
+			}
+			else{
+				prev->next=curr->next; //노드제거
+			}
+			tail->next=curr;
+			curr->next=NULL;
+			tail=curr;
+			
+			ll->size--;
+			ll->size++;
+
+		} else{
+			prev=curr;
+		}
+
+		curr=next;
+		cnt++;
+	}
+
+	// while (curr != NULL){
+	// 	//연결리스트의 현재노드 *curr이 홀수이면
+	// 	if (curr->item %2 !=0) {
+			
+	// 	}
+	// }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

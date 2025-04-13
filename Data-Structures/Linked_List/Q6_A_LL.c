@@ -87,8 +87,38 @@ int main()
 ////////////////////////////////////////////////////////////////////////
 
 int moveMaxToFront(ListNode **ptrHead)
-{
-    /* add your code here */
+{	
+    //리스트가 비어있거나 노드가 1개이면 return
+	//순회하면서, 최댓값 찾고 촤대값을 가진 노드의 이전노드 저장
+	//최대노드가 head노드가 아니면 premax->next에서 때서 head앞으로 이동
+	if (ptrHead==NULL || * ptrHead==NULL || (*ptrHead)->next==NULL)
+		return 0;
+
+	ListNode *maxNode=*ptrHead; //head의 주소
+	ListNode *preMax=NULL;
+
+	ListNode *prev=NULL;
+	ListNode *curr=*ptrHead;
+
+	while (curr !=NULL){
+		if (curr->item > maxNode -> item){
+			maxNode=curr;
+			preMax=prev;
+		}
+		prev=curr;
+		curr=curr->next;
+	}
+
+	if (maxNode==*ptrHead)
+		return 0;
+	if (preMax !=NULL)
+		preMax->next=maxNode->next;
+	
+		maxNode -> next=*ptrHead;
+		*ptrHead=maxNode;
+
+		return 1;
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

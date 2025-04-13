@@ -38,7 +38,7 @@ int removeNode(LinkedList *ll, int index);
 
 int main()
 {
-	int c, i;
+	int c=-1, i;	
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -81,13 +81,13 @@ int main()
 			printList(&resultBackList);
 			printf("\n");
 			removeAllItems(&ll);
-			removeAllItems(&resultFrontList);
-			removeAllItems(&resultBackList);
+			// removeAllItems(&resultFrontList);
+			// removeAllItems(&resultBackList);
 			break;
 		case 0:
 			removeAllItems(&ll);
-			removeAllItems(&resultFrontList);
-			removeAllItems(&resultBackList);
+			// removeAllItems(&resultFrontList);
+			// removeAllItems(&resultBackList);
 			break;
 		default:
 			printf("Choice unknown;\n");
@@ -102,7 +102,39 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	ListNode* curr=ll->head;
+	ListNode* fast=ll->head;
+	ListNode* prev=NULL; //
+	ListNode *next=curr->next;
+
+	while (fast!=NULL && fast -> next != NULL){
+		prev=curr; //
+		curr=curr->next;
+		fast=fast->next->next;
+
+	}
+
+	/////////////////////////////////////////
+	if (prev != NULL);
+		prev->next=NULL;
+	
+	resultFrontList->head = ll ->head;
+	resultBackList->head=curr;
+
+	int total=ll->size;
+	int frontSize=(total+1)/2;
+	int BackSize=total-frontSize;
+	
+	resultFrontList->size=frontSize;
+	resultBackList->size=BackSize;
+
+	// ListNode* half = curr;
+	// curr=next;
+	// half->next=NULL;
+	// curr=resultBackList->head;
+
+
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
