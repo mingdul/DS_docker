@@ -86,9 +86,34 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
-int moveMaxToFront(ListNode **ptrHead)
+int moveMaxToFront(ListNode **ptrHead)	//리스트의 노드를 가리키는 포포인터
 {
-    /* add your code here */
+    ListNode *cur, *max, *front;
+	cur = *ptrHead;		//리스트 노드(head)를 가리키는 포인터를 cur에 대입
+	
+	int index, maxindex = 0;
+	
+	max = cur;
+
+	while(cur->next != NULL)
+	{ 
+		index++;
+		if(cur->next->item > max->item)
+		{
+			max = cur->next;	//현재 if문에서 체크한 값이 max가 된다.
+			front = cur;		//front는 max의 전 값이 된다.
+			maxindex = index;	//if문에서 체크한 값의 위치가 maxindex가 된다.
+		}
+		cur = cur->next;		//다음 노드로 탐색
+	}
+
+	if(maxindex == 0)
+		return 0;
+	
+	front->next = max->next;	//max의 전 값의 next를 max 다음의 노드를 가리키게한다.
+	max->next = *ptrHead;		//max의 다음노드를 현재의 head를 가리키게한다.
+	*ptrHead = max;				//ll.head를 max로 한다.
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

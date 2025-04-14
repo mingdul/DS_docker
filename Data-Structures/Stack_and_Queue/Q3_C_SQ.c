@@ -20,7 +20,7 @@ typedef struct _listnode{
 typedef struct _linkedlist{
    int size;
    ListNode *head;
-   ListNode *tail;
+   ListNode *tail;				//linkedlist에 tail이 있다?
 } LinkedList;
 
 ////////////////////////////////// stack //////////////////////////////////////////
@@ -100,10 +100,33 @@ int main()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-
-int isStackPairwiseConsecutive(Stack *s)
+//새로운 스택을 하나 만들어서 pop을 두번해서 값을 비교, 두 값이 연속한다면 다른 스택에 넣는다. 
+//스택이 다 비었으면 새로 만든 스택의 size가 전 size와 같다면 return 1, 다르다면 return 0
+int isStackPairwiseConsecutive(Stack *s)//스택에 처음 들어갈때 앞의 순서대로하면 stack이 거꾸로 초기화됨?
 {
-  /* add your code here */
+  Stack n_s;
+  n_s.ll.head = NULL;
+  n_s.ll.size = 0;
+  n_s.ll.tail = NULL;
+  int SIZE = s->ll.size;
+
+  while(s->ll.size)
+  {
+	int a, b; 
+  	a = pop(s);
+  	b = pop(s);
+
+	if(a - b == 1 || b - a == 1)
+	{
+		push(&(n_s), a);
+		push(&(n_s), b);
+	}
+  }
+  if(n_s.ll.size == SIZE)
+  	return 1;
+
+  else
+  	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

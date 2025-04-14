@@ -97,7 +97,13 @@ int main()
 int maxHeight(BTNode *node)
 
 {
-    /* add your code here */
+    if(node == NULL)
+        return -1; //빈 트리의 높이는 -1
+    
+    int left = maxHeight(node->left);
+    int right = maxHeight(node->right);
+    
+    return (left > right ? left : right) + 1;   //오른쪽 값과 왼쪽값 중 더 큰값에 +1
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

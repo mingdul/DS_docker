@@ -87,7 +87,31 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
-	/* add your code here */
+	//무한 재귀 //1, 2만 반환
+	// ListNode *last;
+	// if(last == NULL)
+	// 	return;
+	
+	// RecursiveReverse(&(last->next));
+
+	// last->next = last;
+	// last = last->next;
+	// last->next = NULL;
+
+	//5next = 4, 4next = 3, 3next = 2, 2next = 1, 1next = NULL, 5에 도달했을 때 head로 만든다.
+	
+	ListNode *cur, *rest;
+	cur = *ptrHead;
+	if(cur == NULL || cur->next == NULL){
+		return;
+	}
+	rest = cur->next;
+	RecursiveReverse(&(rest));	//rest를 따로 선언하지 않고 cur->next를를
+
+	cur->next->next = cur;
+	cur->next = NULL;
+	
+	*ptrHead = rest;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

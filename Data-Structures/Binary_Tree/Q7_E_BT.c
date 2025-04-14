@@ -102,7 +102,27 @@ int main()
 
 int smallestValue(BTNode *node)
 {
-	/* add your code here */
+    // if(node->left == NULL && node->right == NULL)
+    //     return node->item;
+    if(node == NULL)
+        return __INT_MAX__; // 가능한 큰 값으로 초기화
+    
+    int left = smallestValue(node->left);
+    int right = smallestValue(node->right);
+
+    int smallest = node->item;
+
+    if(left < smallest)
+        smallest = left;
+    if(right < smallest)
+        smallest = right;
+
+    // if(node->item < smallest)
+    //     smallest = node->item;
+
+    // smallest = smallestValue(node->left) < smallestValue(node->right) ? smallestValue(node->left) : smallestValue(node->right);
+
+    return smallest;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

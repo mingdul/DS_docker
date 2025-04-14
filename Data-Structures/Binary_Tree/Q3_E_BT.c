@@ -76,7 +76,7 @@ int main()
                 break;
             case 2:
                 s = countOneChildNodes(root);
-                printf("The number of nodes that have exactly one child node is: %d.\n", s);
+                printf("The number of nodes that have exactly one child node is: %d\n", s);
                 removeAll(&root);
                 break;
             case 0:
@@ -99,9 +99,25 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int countOneChildNodes(BTNode *node)
-
 {
-    /* add your code here */
+    // if(node == NULL)    //추가한 부분
+    //     return 0;
+
+    // if(node->left == NULL && node->right == NULL)
+    //     return 0;
+    // if(node->left == NULL || node->right == NULL)
+    //     return 1;
+    
+    // return countOneChildNodes(node->left) + countOneChildNodes(node->right);
+    // 해당 코드는 자식 노드가 1개가 되었을 때는 더 탐색을 진행하지 않게 된다.
+
+    if(node == NULL)
+        return 0;
+    
+    if((node->left != NULL && node->right == NULL) || (node->left == NULL && node->right != NULL))
+        return 1;       
+    //둘 중 하나가 NULL일때 1을 반환
+    return countOneChildNodes(node->left) + countOneChildNodes(node->right);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

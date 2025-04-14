@@ -103,7 +103,27 @@ int main()
 int sumOfOddNodes(BTNode *node)
 
 {
-    /* add your code here */
+    //해당 코드는 현재 노드가 리프 노드이면서 값이 홀수일 때만 해당 값을 반환하고 있다.
+    //중간 노드나 루트 노드가 홀수여도 무시된다.
+    // if(node == NULL)
+    //     return 0; 
+
+    // if(node->left == NULL && node->right == NULL && node->item % 2 != 0)
+    //     return node->item;
+    
+    // return sumOfOddNodes(node->left) + sumOfOddNodes(node->right);
+
+    if(node == NULL)
+        return 0;
+
+    int sum = 0;
+    if(node->item %2 != 0)
+        sum += node->item;
+
+    sum += sumOfOddNodes(node->left);
+    sum += sumOfOddNodes(node->right);
+
+    return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

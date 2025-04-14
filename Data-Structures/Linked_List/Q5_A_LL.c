@@ -41,6 +41,7 @@ int main()
 	int c, i;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
+	c = 1;
 
 	//Initialize the linked list as an empty linked list
 	ll.head = NULL;
@@ -102,8 +103,52 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
-}
+	// int SIZE = ll->size % 2 == 0 ? (ll->size) / 2 : (ll->size + 1) / 2; // 짝수면 그대로 홀수면 1을 더해서
+	// ListNode *frontEnd, *backStart;
+
+	// backStart = ll->head;	//뒤쪽 리스트의 시작
+	// frontEnd = NULL;
+
+	// for(int i = 0; i < SIZE; i++)
+	// {	
+	// 	frontEnd = backStart;	//앞쪽 리스트의 끝
+	// 	backStart = backStart->next;
+	// }
+
+	// resultFrontList->head = ll->head;
+	// resultFrontList->size = SIZE;
+
+	// resultBackList->head = backStart;
+	// resultBackList->size = ll->size - SIZE;
+
+	// if(frontEnd != NULL)
+	// {
+	// 	frontEnd->next = NULL;
+	// }
+	ListNode *cur;
+
+	int frontSize = ll->size % 2 == 0 ? (ll->size) / 2 : (ll->size + 1) / 2;
+	int endIndex = ll->size - frontSize;
+	int index = 0;
+
+	cur = ll->head;
+
+	while(index < frontSize)
+	{
+		insertNode(resultFrontList, index, cur->item);		//이거의 반환값은 어디로 가는 걸까?
+		cur = cur->next;
+		index++;
+	}
+
+	index = 0;
+
+	while(index < endIndex)
+	{
+		insertNode(resultBackList, index, cur->item);
+		cur = cur->next;
+		index++;
+	}
+}// 0을 눌렀을 때 오류가 생기는 듯
 
 ///////////////////////////////////////////////////////////////////////////////////
 

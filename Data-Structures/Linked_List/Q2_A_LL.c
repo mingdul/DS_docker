@@ -40,7 +40,7 @@ int removeNode(LinkedList *ll, int index);
 
 int main()
 {
-	LinkedList ll1, ll2;
+	LinkedList ll1, ll2; //링크드리스트 ll1, ll2선언
 	int c, i, j;
 	c = 1;
 	//Initialize the linked list 1 as an empty linked list
@@ -65,15 +65,16 @@ int main()
 		{
 		case 1:
 			printf("Input an integer that you want to add to the linked list 1: ");
-			scanf("%d", &i);
-			j = insertNode(&ll1, ll1.size, i);
-			printf("Linked list 1: ");
-			printList(&ll1);
+			scanf("%d", &i);	//값을 받아와서 i에 대입한다
+			j = insertNode(&ll1, ll1.size, i);	//리스트의 주소와 리스트의 사이즈를 받아서 리스트의 사이즈를 인덱스로
+			//i값을 넣는다. 리스트의 마지막에 값을 넣는다.
+			printf("Linked list 1: ");	
+			printList(&ll1); //첫번째 리스트를 전부 출력한다.
 			break;
-		case 2:
+		case 2: // 2번 리스트에 값을 넣는다.
 			printf("Input an integer that you want to add to the linked list 2: ");
-			scanf("%d", &i);
-			j = insertNode(&ll2, ll2.size, i);
+			scanf("%d", &i);	
+			j = insertNode(&ll2, ll2.size, i);	
 			printf("Linked list 2: ");
 			printList(&ll2);
 			break;
@@ -101,14 +102,29 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
+void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2) //링크드 리스트 두개를 받아서 첫번째 리스트의 사이에 넣는 함수
 {
-    /* add your code here */
+	ListNode *cur, *nhead;
+
+	int size = ll1->size < ll2->size ? ll1->size : ll2->size;
+	int index = 1;
+
+	while (size != 0){
+		int value = ll2->head->item;		//헤드 노드의 item을 value에 넣는다
+		insertNode(ll1, index, value);		//insertNode를 실행
+		cur = ll2->head;					//cur에 ll2의 현재 head를 넣는다
+		nhead = ll2->head->next;			//nhead에 현재 head의 다음 노드를 넣는다.
+		ll2->head = nhead;					//ll2의 head를 nhead로 바꾼다.
+		free(cur);							//전의 head는 메모리를 반환
+		
+		size--;								//사이즈를 1줄인다.
+		index += 2;							//index는 사이에 들어가야 하기 때문에 2증가
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-void printList(LinkedList *ll){
+void printList(LinkedList *ll){	
 
 	ListNode *cur;
 	if (ll == NULL)
@@ -163,7 +179,7 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
-int insertNode(LinkedList *ll, int index, int value){
+int insertNode(LinkedList *ll, int index, int value){	
 
 	ListNode *pre, *cur;
 
