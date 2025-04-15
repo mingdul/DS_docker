@@ -104,9 +104,28 @@ int main()
 int isStackPairwiseConsecutive(Stack *s)
 {
   /* add your code here */
+	if(s->ll.size %2==1){
+		return 0;
+	}
+	else{
+		while (!isEmptyStack(s)){
+
+			int c=pop(s);
+			int p=pop(s);
+			if (abs(c-p) !=1){
+				return 0;
+			}
+			// if (c-p==1){
+			// 	push(s,c);
+			// 	push (s,p);
+			// } //할필요없음 -> 무한 뤂
+		}
+		return 1;
+	}
+	return 1;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
 void push(Stack *s, int item){
    insertNode(&(s->ll), 0, item);

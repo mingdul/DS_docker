@@ -112,6 +112,34 @@ int main()
 void removeUntil(Stack *s, int value)
 {
 /* add your code here */
+//s->ll.size는 pop 될 때마다 줄어듦
+//예를 들어 size = 4일 때, i=0에서 pop 하면 size는 3이 되는데
+//for문은 처음 정한 조건 i < 4까지 반복하므로 오버플로우 가능
+	// if (s->ll.size!=0){
+	// 	int item;
+	// 	for (int i=0;i<s->ll.size;i++){
+	// 		int A=pop(s);
+	// 		if (A==value)
+	// 			break;
+	// 	}
+	// }
+//////////////////////////////////////////////////////////
+// while(!isEmptyStack(s)){
+	// 	int a=pop(s);
+	// 	if (a==value)
+	// 		break;
+	// } // until 수까지 모두 pop
+//////////////////////////////////////////////////
+	while (!isEmptyStack(s)) {
+		if (peek(s) == value)
+			break;
+		pop(s);
+	}
+//peek은 스택의 top(맨 위) 값을 제거하지 않고 확인하는 함수
+//peek() → top 값을 보기만 하고 유지
+
+
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

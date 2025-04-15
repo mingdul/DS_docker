@@ -112,7 +112,22 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	Stack s;
+    s.ll.head = NULL;
+    s.ll.size = 0;
+    s.ll.tail = NULL;
+
+    // 스택 초기화 (기존 내용 제거)
+    removeAllItems(&(s.ll));
+	while (!isEmptyQueue(q)){
+		int A=dequeue(q);
+		push(&s,A);
+	}
+	while  (!isEmptyStack(&s)){
+		int B=pop(&s);
+		enqueue(q,B);
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

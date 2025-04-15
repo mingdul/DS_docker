@@ -103,8 +103,27 @@ int main()
 
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
-{
-/* add your code here */
+{	
+	Stack s;
+	s.ll.head=NULL;
+	s.ll.size=0;
+
+	for (int i =0; expression[i] !='\0'; i++){
+		char ch = expression[i];
+
+		if (ch=='(' || ch=='[' || ch=='{'){
+			push(&s,ch);
+		}
+		if (ch==')' || ch==']' || ch=='}')
+			if (isEmptyStack(&s)) return 0;
+			
+		int top= pop(&s);
+		
+		if ((ch==')' && top !='(')|| ch==']' && ch=='[' || ch=='{'&&ch=="}")
+			return 0;
+
+	}
+	return isEmptyStack(&s);
 }
 
 ////////////////////////////////////////////////////////////
