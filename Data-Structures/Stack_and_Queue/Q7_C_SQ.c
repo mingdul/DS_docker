@@ -104,7 +104,48 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	Stack s;
+	s.ll.head = NULL;
+	s.ll.size = 0;
+ 
+	 for(int i = 0; i < 256; i++)
+	 {
+		int num; 
+		if(expression[i] == '(')		//문자 하나를 비교할 때는 ''를 사용해야한다. ""는 문자열.
+			num = 0;
+		else if(expression[i] == '{')
+			num = 1;
+		else if(expression[i] == '[')
+			num = 2;
+		else if(expression[i] == ')')
+			num = 3;
+		else if(expression[i] == '}')
+			num = 4;
+		else if(expression[i] == ']')
+			num = 5;
+		else
+			break;
+		
+		if(s.ll.size == 0 && num >= 3)	//스택이 비었는데 닫는 괄호가 들어온다면 함수 종료
+			return 1;
+
+		if(num < 3)					//여는 괄호면 스택에 넣는다.
+			push(&s, num);
+		else						//닫는 괄호일 때
+		{
+			int open = peek(&s);	//스택의 top에 있는 괄호를 확인
+
+			if(open == num-3)		//두개가 짝이 맞다면
+				pop(&s);
+			else
+				return 1;
+		}
+		
+	 }
+	 if(s.ll.size == 0)
+	 	return 0;
+	 else
+	 	return 1;
 }
 
 ////////////////////////////////////////////////////////////

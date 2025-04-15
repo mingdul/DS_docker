@@ -112,7 +112,25 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	Stack s;
+	s.ll.head = NULL;	//s는 포인터가 아니기 때문에 .으로 참조
+	s.ll.size = 0;
+	s.ll.tail = NULL;
+
+	if(s.ll.size != 0)
+		removeAllItems(&(s.ll));
+
+	while(q->ll.size != 0)	//q가 비어있지 않으면 반복
+	{	
+		int temp = dequeue(q); //q에서 빼서 s에 넣는다.
+		push(&s, temp);
+	}
+
+	while(s.ll.size != 0)	//s가 비어있지 않으면 반복
+	{
+		int temp = pop(&s);
+		enqueue(q, temp);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

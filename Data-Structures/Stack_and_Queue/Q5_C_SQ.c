@@ -107,9 +107,14 @@ int main()
 
 ////////////////////////////////////////////////////////////
 
-void recursiveReverse(Queue *q)
-{
-/* add your code here */
+void recursiveReverse(Queue *q)	//q의 요소를 반대로 바꾸는 재귀함수 구현
+{//결국 전의 문제와 같은 느낌, 재귀는 스택의 개념과 비슷
+	if(q->ll.size == 0)
+		return;
+	int temp = dequeue(q);
+	recursiveReverse(q);
+	enqueue(q, temp);
+	return;
 }
 
 //////////////////////////////////////////////////////////////////
