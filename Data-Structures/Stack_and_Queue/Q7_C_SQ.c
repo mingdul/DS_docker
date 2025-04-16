@@ -102,7 +102,8 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
-int balanced(char *expression)
+int balanced(char *expression)	
+
 {	
 	Stack s;
 	s.ll.head=NULL;
@@ -115,15 +116,16 @@ int balanced(char *expression)
 			push(&s,ch);
 		}
 		if (ch==')' || ch==']' || ch=='}')
-			if (isEmptyStack(&s)) return 0;
+			if (isEmptyStack(&s)) return 1;
 			
-		int top= pop(&s);
+		int top= peek(&s);
 		
-		if ((ch==')' && top !='(')|| ch==']' && ch=='[' || ch=='{'&&ch=="}")
-			return 0;
+		if ((ch==')' && top =='(')|| (ch==']' && top=='[') || (ch=='}'&& top=='{'))
+			pop(&s);
+			
 
 	}
-	return isEmptyStack(&s);
+	return !isEmptyStack(&s);
 }
 
 ////////////////////////////////////////////////////////////
