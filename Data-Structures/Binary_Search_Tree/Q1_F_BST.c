@@ -93,11 +93,40 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-//너비 우선 탐색을 하는 것으로 보인다.
+//BFS를 하는 것으로 보인다.
 void levelOrderTraversal(BSTNode* root)
 {
+	QueueNode *headPtr = NULL;	//노드 자체를 초기화 안함
+	QueueNode *tailPtr = NULL;	//노드 자체를 초기화 안함
+	BSTNode * node = NULL;	//노드 자체를 초기화 안함
 
-    /* add your code here */
+	enqueue(&headPtr, &tailPtr, root);
+	// int arr[100];
+	// int cnt = 0;
+
+	while(headPtr != NULL)
+	{
+		node = dequeue(&headPtr, &tailPtr);
+		// arr[cnt] = node->item;
+		printf("%d ", node->item);
+		if(node->left != NULL)	//NULL 값도 queue에 들어갈 수 있음
+			enqueue(&headPtr, &tailPtr, node->left);
+		if(node->right != NULL) //NULL 값도 queue에 들어갈 수 있음
+			enqueue(&headPtr, &tailPtr, node->right);
+			
+		// cnt++;
+	}
+
+	// for(int i = 0; i < cnt+1; i++)
+	// {
+	// 	if(i == 0)
+	// 		printf("%d", arr[i]);
+		
+	// 	else if(arr[i] != NULL)
+	// 		printf(", %d", arr[i]);
+	// }
+	// printf(".");
+	// free(arr);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -132,7 +161,7 @@ void insertBSTNode(BSTNode **node, int value){	//BSTNode의 포포인터
 
 // enqueue node
 void enqueue(QueueNode **headPtr, QueueNode **tailPtr, BSTNode *node)
-{
+{//queue 구조체를 따로 선언하지 않았기 때문에 head와 tail을 가리키는 포인터의 포인터를 매개변수로 받아 값을 수정
 	// dynamically allocate memory
 	QueueNode *newPtr = malloc(sizeof(QueueNode));
 	//newPtr에 QueueNode의 사이즈만큼 동적으로 메모리를 할당한다.
@@ -143,47 +172,55 @@ void enqueue(QueueNode **headPtr, QueueNode **tailPtr, BSTNode *node)
 		newPtr->nextPtr = NULL;	//newPtr의 다음 nextPtr에 NULL을 대입한다.
 		// 
 		// if queue is empty, insert at head
-		if (isEmpty(*headPtr)) {
-			*headPtr = newPtr;
+		if (isEmpty(*headPtr)) {//headPtr이 비었으면
+			*headPtr = newPtr;	//headPtr에 newPtr을 대입한다. 
 		}
 		else { // insert at tail
-			(*tailPtr)->nextPtr = newPtr;
+			(*tailPtr)->nextPtr = newPtr;	//tailPtr의 nextPtr에 newPtr을 대입한다. newPtr이 꼬리가 된다.
 		}
 
-		*tailPtr = newPtr;
+		*tailPtr = newPtr;					//tailPtr에 newPtr을 대입한다? 조건문에 else부분에 newPtr을 대입하는데 또?
+		//여기서 tailPtr에 대입하는 것은 Queue의 tail을 newPtr로 한다는 뜻
 	}
 	else {
-		printf("Node not inserted");
+		printf("Node not inserted"); 
 	}
 }
 
 BSTNode* dequeue(QueueNode **headPtr, QueueNode **tailPtr)
-{
-	BSTNode *node = (*headPtr)->data;
-	QueueNode *tempPtr = *headPtr;
-	*headPtr = (*headPtr)->nextPtr;
+{//QueueNode를 가리키는 포인터의 포인터 headPtr, tailPtr을 받아서 BSTNode를 가리키는 포인터를 반환
+	BSTNode *node = (*headPtr)->data; //BSTNode의 node에 headPtr의 data를 대입한다.
+	//headPtr은 QueueNode *의 포인터 (QueueNode **)
+	//*headPtr은 큐의 첫 번째 노드를 가리킴
+	//(*headPtr)->data는 그 노드에 들어 있는 BSTNode 포인터
+	//이걸 node라는 포인터 변수에 저장함
+	QueueNode *tempPtr = *headPtr;	//QueueNode를 가리키는 포인터 temPtr에 headPtr의 값을 대입한다.
+	//큐의 맨 앞 노드를 가리키는 포인터를 tempPtr에 복사(메모리 해제를 위해서 노드 저장)
+	*headPtr = (*headPtr)->nextPtr; //headPtr에 headPtr의 nextPtr을 대입한다.
+	//큐의 두 번째 노드가 새 head가 됨
 
-	if (*headPtr == NULL) {
-		*tailPtr = NULL;
+	if (*headPtr == NULL) {			//headPtr이 NULL이면 
+		//큐가 비었는지 확인, head와 tail을 NULL으로 바꾼다.
+		*tailPtr = NULL;			//tailPtr을 NULL으로 한다.
 	}
 
-	free(tempPtr);
-
-	return node;
+	free(tempPtr);					//tempPtr의 메모리 할당을 해제한다.
+	//tempPtr에 저장해둔 큐의 맨 앞 노드의 메모리를 해제
+	return node;					//저장해둔 노드의 데이터를 반환한다.
 }
 
-int isEmpty(QueueNode *head)
+int isEmpty(QueueNode *head)		//QueueNode를 가리키는 포인터 head를 매개변수로 받는다.
 {
-	return head == NULL;
+	return head == NULL;			//head가 NULL이면 1을 반환
 }
 
-void removeAll(BSTNode **node)
+void removeAll(BSTNode **node)		//모든 노드를 삭제하는 함수, BSTNode를 가리키는 포인터의 포인터 node를 매개변수로 받는다.
 {
-	if (*node != NULL)
+	if (*node != NULL)				//node가 NULL이라면
 	{
-		removeAll(&((*node)->left));
-		removeAll(&((*node)->right));
-		free(*node);
-		*node = NULL;
+		removeAll(&((*node)->left));//재귀적으로 node 함수를 호출한다. 왼쪽 끝으로 이동
+		removeAll(&((*node)->right));//재귀적으로 node 함수를 호출한다. 오른쪽 끝으로 이동
+		free(*node);				//현재 노드의 메모리 할당을 해제한다.
+		*node = NULL;				//해당 노드를 NULL으로 만든다.
 	}
 }

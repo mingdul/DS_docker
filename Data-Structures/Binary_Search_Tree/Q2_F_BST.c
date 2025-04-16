@@ -87,10 +87,32 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
+//후위 순회를 구현하는 코드로 보인다.
 
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+	Stack *stack = malloc(sizeof(Stack));
+	stack->top = NULL;
+	BSTNode *node = root;
+	push(stack, node); //root 노드부터 스택에 넣는다.
+
+	while(stack->top != NULL) //스택에 값이 없을 때까지 반복
+	{
+		while(node->left != NULL)
+		{
+			node = node->left;
+			push(stack, node);
+		}
+
+		node = pop(stack);	//스택에서 pop한 값을 노드에 대입
+		printf("%d ", node->item);
+		
+		if(node->right != NULL)
+		{
+			node = node->right;
+			push(stack, node);
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

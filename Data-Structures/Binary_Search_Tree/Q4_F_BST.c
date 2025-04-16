@@ -91,7 +91,43 @@ int main()
 
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+	Stack *stack = malloc(sizeof(Stack));
+	stack->top = NULL;
+	BSTNode *node = root;
+	push(stack, node);
+//오른쪽은 넣고 왼쪽은 프린트하고?
+	if(node->right != NULL)
+		push(stack, node->right);
+	if(node->left != NULL)
+		push(stack, node->left);
+	if(node->left != NULL)
+		node = node->left;
+
+	if(node->right != NULL)
+		push(stack, node->right);
+	if(node->left != NULL)
+		push(stack, node->left);
+	if(node->left != NULL)	//left가 비어있지 않으면
+		node = node->left;
+	
+	node = pop(stack);
+	print("%d", node->item);
+	
+	//15일 경우 무한으로 스택에 값을 넣게 된다.
+	node = peek(stack);
+	print("%d", node->item);
+
+	if(node->right != NULL)
+		push(stack, node->right);
+	if(node->left != NULL)
+		push(stack, node->left);
+	if(node->left != NULL)
+		node = node->left;
+	
+	node = pop(stack);
+	printf("%d", node->item);
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

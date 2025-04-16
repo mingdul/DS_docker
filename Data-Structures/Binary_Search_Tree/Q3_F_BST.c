@@ -88,10 +88,40 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+//전위순회를 한다.	
 void preOrderIterative(BSTNode *root)
-{
-	 /* add your code here */
+{	
+	Stack *stack = malloc(sizeof(Stack));
+	stack->top = NULL;
+	BSTNode *node = root;
+	push(stack, node);
+	// 오류 코드인 줄 알았으나...
+	// while(stack->top != NULL)
+	// {
+	// 	node = pop(stack);	//처음에는 root노드가 들어간다.
+	// 	printf("%d ", node->item);
+	// 	if(node->right != NULL)
+	// 		push(stack, node->right);
+
+	// 	while(node->left != NULL)
+	// 	{
+	// 		node = node->left;
+	// 		printf("%d ", node->item);
+	// 		if(node->right != NULL)
+	// 			push(stack, node->right);
+	// 	}
+	// }
+0
+	while(stack->top != NULL)
+	{
+		node = pop(stack);
+		printf("%d ", node->item);
+
+		if(node->right != NULL)
+			push(stack, node->right);
+		if(node->left != NULL)
+			push(stack, node->left);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
