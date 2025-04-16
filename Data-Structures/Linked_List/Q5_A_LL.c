@@ -98,44 +98,51 @@ int main()
 	return 0;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////////////////
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	ListNode* curr=ll->head;
-	ListNode* fast=ll->head;
-	ListNode* prev=NULL; //
-	ListNode *next=curr->next;
+    if (ll == NULL || ll->head == NULL) {
+        resultFrontList->head = NULL;
+        resultBackList->head = NULL;
+        resultFrontList->size = 0;
+        resultBackList->size = 0;
+        return;
+    }
 
-	while (fast!=NULL && fast -> next != NULL){
-		prev=curr; //
-		curr=curr->next;
-		fast=fast->next->next;
+    ListNode *cur = ll->head;
+    ListNode *fast = ll->head;
+    ListNode *prev = NULL;
 
-	}
+    while (fast != NULL && fast->next != NULL && fast->next->next != NULL) {
+        prev = cur;
+        cur = cur->next;
+        fast = fast->next->next;
+    }
 
-	/////////////////////////////////////////
-	if (prev != NULL);
-		prev->next=NULL;
-	
-	resultFrontList->head = ll ->head;
-	resultBackList->head=curr;
+    resultFrontList->head = ll->head;
+    resultBackList->head = cur->next;
+    cur->next = NULL;
 
-	int total=ll->size;
-	int frontSize=(total+1)/2;
-	int BackSize=total-frontSize;
-	
-	resultFrontList->size=frontSize;
-	resultBackList->size=BackSize;
+    int frontSize = 0, backSize = 0;
+    ListNode *c;
 
-	// ListNode* half = curr;
-	// curr=next;
-	// half->next=NULL;
-	// curr=resultBackList->head;
+    c = resultFrontList->head;
+    while (c != NULL) {
+        frontSize++;
+        c = c->next;
+    }
 
+    c = resultBackList->head;
+    while (c != NULL) {
+        backSize++;
+        c = c->next;
+    }
 
-	
+    resultFrontList->size = frontSize;
+    resultBackList->size = backSize;
 }
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
