@@ -101,7 +101,23 @@ int main()
 int countOneChildNodes(BTNode *node)
 
 {
-    /* add your code here */
+    if (node==NULL){
+        return 0;
+    }
+
+    int Leftnode=countOneChildNodes(node->left);
+    int Rightnode=countOneChildNodes(node->right);
+    int cnt =0;
+
+    if ((node->left==NULL && node->right!=NULL)|| (node->left!=NULL && node->right==NULL)){
+        cnt+=1;
+    }
+
+    return cnt+Leftnode+Rightnode;
+
+//leftnode != NULL 정수형 값을 포인터 NULL과 비교 → 잘못된 비교
+//node->left != NULL 포인터를 NULL과 비교 (정상)
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

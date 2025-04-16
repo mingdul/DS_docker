@@ -102,11 +102,38 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
+void mirrorTree(BTNode *node){
+    if (node==NULL){
+        return;
+    }
 
-void mirrorTree(BTNode *node)
-{
-	/* add your code here */
+    BTNode* temp=node->left;
+    node->left = node->right;
+    node->right=temp;
+
+    mirrorTree(node->left);
+    mirrorTree(node->right);
 }
+
+//////////////////////////////////////////
+//반환값이 void라서 int 로 받으면 안됨
+//값을 바꾸는게 아니라 그냥 값
+// void mirrorTree(BTNode *node)
+// {
+//     BTNode* temp;
+// 	if (node==NULL){
+//         return 0;
+//     }
+//     else {
+//         temp=node->left->item;
+//         node->right->item=temp;
+//         node->left=node->right; //링크 바꿔주기
+//         mirrorTree(node->left); //왼쪽 부트리
+//         mirrorTree(node->right); //오른쪽 부트리
+//     }
+
+//     return temp;
+// }
 
 //////////////////////////////////////////////////////////////////////////////////
 
